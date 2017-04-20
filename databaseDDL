@@ -1,0 +1,93 @@
+CREATE TABLE Employee
+(
+    EmployeeID INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    Firstname VARCHAR(20),
+    Lastname VARCHAR(20),
+    Age INT(11),
+    Faculty VARCHAR(40),
+    Title VARCHAR(20)
+);
+
+CREATE TABLE Semester
+(
+    SemesterID INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    StartYear YEAR(4) NOT NULL,
+    Ordinal INT(11) NOT NULL
+);
+CREATE TABLE Subject
+(
+    SubjectID INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    SemesterID INT(11) NOT NULL,
+    Name VARCHAR(40) NOT NULL,
+    CONSTRAINT Subject_ibfk_1 FOREIGN KEY (SemesterID) REFERENCES Semester (SemesterID)
+);
+CREATE TABLE SubjectEmployee
+(
+    SubjectID INT(11) NOT NULL,
+    EmployeeID INT(11) NOT NULL,
+    CONSTRAINT `PRIMARY` PRIMARY KEY (SubjectID, EmployeeID),
+    CONSTRAINT SubjectFK FOREIGN KEY (SubjectID) REFERENCES Subject (SubjectID),
+    CONSTRAINT EmployeeFK FOREIGN KEY (EmployeeID) REFERENCES Employee (EmployeeID)
+);
+
+CREATE TABLE RoleInSubject
+(
+    Role INT(11) DEFAULT '0' NOT NULL,
+    SubjectID INT(11) NOT NULL,
+    RoleInSubjectID INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    CONSTRAINT RoleInSubject_SubjectEmployee_SubjectID_fk FOREIGN KEY (SubjectID) REFERENCES SubjectEmployee (SubjectID)
+);
+
+CREATE TABLE Student
+(
+    Firstname VARCHAR(30),
+    Lastname VARCHAR(30),
+    Birthday DATE,
+    StartingYear INT(11),
+    StudentID INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT
+);
+
+CREATE TABLE Account
+(
+    AccountID INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    Login VARCHAR(30) NOT NULL,
+    Password VARCHAR(30) NOT NULL,
+    StudentID INT(11),
+    CONSTRAINT Account_Student_StudentID_fk FOREIGN KEY (StudentID) REFERENCES Student (StudentID)
+);
+
+CREATE TABLE SubjectEmployeeOpinion
+(
+    StudentID INT(11),
+    RoleInSubjectID INT(11),
+    SubjectEmployeeOpinionID INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    CONSTRAINT SubjectEmployeeOpinion_Student_StudentID_fk FOREIGN KEY (StudentID) REFERENCES Student (StudentID),
+    CONSTRAINT SubjectEmployeeOpinion_RoleInSubject_RoleInSubjectID_fk FOREIGN KEY (RoleInSubjectID) REFERENCES RoleInSubject (RoleInSubjectID)
+);
+
+CREATE TABLE SingleOpinion
+(
+    opinion VARCHAR(256) NOT NULL,
+    plus INT(11) DEFAULT '0',
+    minus INT(11) DEFAULT '0',
+    SingleOpinion INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    SubjectEmployeeOpinionID INT(11),
+    CONSTRAINT SingleOpinion_SubjectEmployeeOpinion_SubjectEmployeeOpinionID_fk FOREIGN KEY (SubjectEmployeeOpinionID) REFERENCES SubjectEmployeeOpinion (SubjectEmployeeOpinionID)
+);
+
+CREATE TABLE UserSettings
+(
+    AccountID INT(11) NOT NULL,
+    Skin VARCHAR(30),
+    Privileges VARCHAR(5),
+    CONSTRAINT AccountID FOREIGN KEY (AccountID) REFERENCES Account (AccountID)
+);
+
+CREATE TABLE SubjectOpinions
+(
+    SubjectOpinionsKey INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    SingleOpinionFK INT(11),
+    SubjectFK INT(11),
+    CONSTRAINT SubjectOpinions_SingleOpinion_SingleOpinion_fk FOREIGN KEY (SingleOpinionFK) REFERENCES SingleOpinion (SingleOpinion),
+    CONSTRAINT Semester___fk FOREIGN KEY (SubjectFK) REFERENCES Subject (SubjectID)
+);
