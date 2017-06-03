@@ -23,30 +23,49 @@ app.listen(3000, function() {
 
 
 //ROUTES
-app.get('/student', function(req, res){
-    // reqjson = JSON.parse(req);
-    // reqjson.get()
-    // res.sendFile(__dirname + '/index.html');
-    connection.query('SELECT * from Student where IndexNumber = 69', function (error, results, fields) {
-        if (error) return console.log(error);
-        console.log(results[0].Lastname);
-        // ress = '<h1>' + results[0].Firstname + ' ' + results[0].Lastname + ' ' + results[0].Title + '</h1>'
-        // res.send(ress);
-        res.render('index.ejs', {firstname: results[0]} )
-    });
-    // console.log(req.query);
-    // res.render('index.ejs', {firstname: req.query['surname']})
-});
-
+// app.get('/student', function(req, res){
+//     // reqjson = JSON.parse(req);
+//     // reqjson.get()
+//     // res.sendFile(__dirname + '/index.html');
+//     connection.query('SELECT * from Student where IndexNumber = 69', function (error, results, fields) {
+//         if (error) return console.log(error);
+//         console.log(results[0].Lastname);
+//         // ress = '<h1>' + results[0].Firstname + ' ' + results[0].Lastname + ' ' + results[0].Title + '</h1>'
+//         // res.send(ress);
+//         res.render('index.ejs', {firstname: results[0]} )
+//     });
+//     // console.log(req.query);
+//     // res.render('index.ejs', {firstname: req.query['surname']})
+// });
 
 app.get('/', function(req, res){
-    // connection.query('SELECT * from Employee', function (error, results, fields) {
-    //
-    // });
-    res.render('index.ejs', {firstname: ''})
-    // res.send("OK");
+    res.send("OK");
 });
 
-app.get('/subject/:id/opinions', function (req, res) {
+app.get('v1/subject/:id', function (req, res) {
+
+});
+
+app.get('v1/subject/:id/employees', function (req, res) {
+
+});
+
+app.get('v1/subject/:id/opinions', function (req, res) {
     
+});
+
+app.get('v1/employee/:id', function (req, res) {
+
+});
+
+app.get('v1/employee/:id/opinions', function (req, res) {
+
+});
+
+app.post('v1/subject/:id/opinion', function (req, res) {
+
+});
+
+app.post('v1/employee/:id/opinion', function (req, res) {
+
 });
