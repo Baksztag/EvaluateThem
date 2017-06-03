@@ -13,9 +13,6 @@ const connection = mysql.createConnection({
     database: process.env.database
 });
 
-//VIEW ENGINE
-app.set('view engine', 'ejs');
-
 //START LISTENING
 app.listen(3000, function() {
     console.log('listening on 3000')
