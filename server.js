@@ -47,18 +47,18 @@ app.get('/v1/subjects', function (req, res) {
 
 });
 
-app.get('/v1/subject/:id', function (req, res) {
+app.get('/v1/subjects/:id', function (req, res) {
     connection.query('SELECT * FROM Subject WHERE SubjectID = ' + req.params.id, function (error, results, fields) {
         res.send(results);
         console.log(results);
     });
 });
 
-app.get('/v1/subject/:id/employees', function (req, res) {
+app.get('/v1/subjects/:id/employees', function (req, res) {
 
 });
 
-app.get('/v1/subject/:id/opinions', function (req, res) {
+app.get('/v1/subjects/:id/opinions', function (req, res) {
     
 });
 
@@ -69,21 +69,21 @@ app.get('/v1/employees', function (req, res) {
     });
 });
 
-app.get('/v1/employee/:id', function (req, res) {
+app.get('/v1/employees/:id', function (req, res) {
     connection.query('SELECT * FROM Employee WHERE EmployeeID = ' + req.params.id, function (error, results, fields) {
         res.send(results);
         console.log(results);
     });
 });
 
-app.get('/v1/employee/:id/opinions', function (req, res) {
+app.get('/v1/employees/:id/opinions', function (req, res) {
 
 });
 
-app.post('/v1/subject/:id/opinion', function (req, res) {
+app.post('/v1/subjects/:id/opinions', function (req, res) {
 
 });
 
-app.post('/v1/employee/:id/opinion', function (req, res) {
+app.post('/v1/employees/:id/opinions', function (req, res) {
 
 });
